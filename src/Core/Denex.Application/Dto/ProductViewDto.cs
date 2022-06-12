@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Dto
 {
-    internal class ProductViewDto
+    public class ProductViewDto
     {
+        public ProductViewDto(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
     }
