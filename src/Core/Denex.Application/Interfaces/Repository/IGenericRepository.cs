@@ -10,8 +10,7 @@ namespace Denex.Application.Repository
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         Task<List<TEntity>> GetAll();
-        Task<TEntity> GetById(int id);
+        Task<TEntity?> GetById(int id);
         Task<TEntity> Add(TEntity entity);
-        Task<TEntity> Update(TEntity entity);
     }
 }
