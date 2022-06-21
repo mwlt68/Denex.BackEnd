@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Denex.Application.Dto;
-using Denex.Application.Features.Commands.CreateProduct;
-using Denex.Application.Features.Queries.GetProductById;
+using Denex.Application.Features.Commands.UserInsert;
 using Denex.Domain.Entities;
 
 namespace Denex.Application.Mapping
@@ -10,9 +8,7 @@ namespace Denex.Application.Mapping
     {
         public GeneralMapping()
         {
-            CreateMap<Product,ProductViewDto>().ReverseMap();
-            CreateMap<Product, CreateProductCommand>().ReverseMap();
-            CreateMap<Product, GetProductByIdViewModel>().ReverseMap();
+            CreateMap<UserInsertCommand, User>();
         }
     }
 }

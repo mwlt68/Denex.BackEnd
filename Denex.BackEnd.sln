@@ -7,17 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D22CF71E-66E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B5965DC7-6F7F-4C86-A1EB-99386732269C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Denex.Domain", "src\Core\Denex.Domain\Denex.Domain.csproj", "{695C752E-6E11-451A-9EAD-E28D8ADDB2E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denex.Domain", "src\Core\Denex.Domain\Denex.Domain.csproj", "{695C752E-6E11-451A-9EAD-E28D8ADDB2E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Denex.Application", "src\Core\Denex.Application\Denex.Application.csproj", "{B7E2BDF6-3F78-4880-8EE5-7DAA71DE2CC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denex.Application", "src\Core\Denex.Application\Denex.Application.csproj", "{B7E2BDF6-3F78-4880-8EE5-7DAA71DE2CC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8DC6AC75-AB02-49F0-AB23-6991C8A46719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Denex.Persistance", "src\Infrastructure\Denex.Persistance\Denex.Persistance.csproj", "{E6467946-4280-4E74-BB0D-7F3929653FB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denex.Persistance", "src\Infrastructure\Denex.Persistance\Denex.Persistance.csproj", "{E6467946-4280-4E74-BB0D-7F3929653FB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{72E97305-7131-4AC6-9DCC-4927930EC767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Denex.WebApi", "src\WebApi\Denex.WebApi\Denex.WebApi.csproj", "{C52223A6-D9C2-4C6D-886D-DE68534E1D37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denex.WebApi", "src\WebApi\Denex.WebApi\Denex.WebApi.csproj", "{C52223A6-D9C2-4C6D-886D-DE68534E1D37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

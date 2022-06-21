@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Repository
 {
-    public interface IProductRepository: IGenericRepository<Product>
+    public interface IUserRepository: IGenericRepository<User,string>
     {
     }
 }

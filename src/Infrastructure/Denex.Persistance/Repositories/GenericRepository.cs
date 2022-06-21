@@ -1,32 +1,75 @@
 ﻿using Denex.Application.Repository;
 using Denex.Domain.Common;
-using Denex.Persistance.Context;
-using Microsoft.EntityFrameworkCore;
+using Denex.Persistance.Settings;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace Denex.Persistance.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T, string> where T : BaseEntity, new()
     {
-        private readonly ApplicationDbContext context;
-        public GenericRepository(ApplicationDbContext context)
+        protected readonly IMongoCollection<T> Collection;
+        private readonly MongoDbSettings settings;
+
+        protected GenericRepository(IOptions<MongoDbSettings> options)
         {
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.settings = options.Value;
+            var client = new MongoClient(settings.ConnectionString);
+            var db = client.GetDatabase(settings.Database);
+            string a = typeof(T).Name.ToLowerInvariant();
+            this.Collection = db.GetCollection<T>(a);
         }
-        public virtual async Task<List<TEntity>> GetAll()
+        public virtual async Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate)
         {
-            var entities=await context.Set<TEntity>().ToListAsync();
-            return entities;
+            return await Collection.Find(predicate).ToListAsync();
         }
-        public virtual async Task<TEntity?> GetById(int id)
+        public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            var entity = await context.Set<TEntity>().FindAsync(id);
+            return await Collection.Find(predicate).FirstOrDefaultAsync();
+        }
+
+        public virtual async Task<T> GetByIdAsync(string id)
+        {
+            return await Collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public virtual async Task<T> AddAsync(T entity)
+        {
+            var options = new InsertOneOptions { BypassDocumentValidation = false };
+            await Collection.InsertOneAsync(entity, options);
             return entity;
         }
-        public virtual async Task<TEntity> Add(TEntity entity)
+
+        public virtual async Task<bool> AddRangeAsync(IEnumerable<T> entities)
         {
-            var entityResult = await context.Set<TEntity>().AddAsync(entity);
-            await context.SaveChangesAsync();
-            return entityResult.Entity;
+            var options = new BulkWriteOptions { IsOrdered = false, BypassDocumentValidation = false };
+            return (await Collection.BulkWriteAsync((IEnumerable<WriteModel<T>>)entities, options)).IsAcknowledged;
+        }
+
+        public virtual async Task<T> UpdateAsync(string id, T entity)
+        {
+            return await Collection.FindOneAndReplaceAsync(x => x.Id == id, entity);
+        }
+
+        public virtual async Task<T> UpdateAsync(T entity, Expression<Func<T, bool>> predicate)
+        {
+            return await Collection.FindOneAndReplaceAsync(predicate, entity);
+        }
+
+        public virtual async Task<T> DeleteAsync(T entity)
+        {
+            return await Collection.FindOneAndDeleteAsync(x => x.Id == entity.Id);
+        }
+
+        public virtual async Task<T> DeleteAsync(string id)
+        {
+            return await Collection.FindOneAndDeleteAsync(x => x.Id == id);
+        }
+
+        public virtual async Task<T> DeleteAsync(Expression<Func<T, bool>> filter)
+        {
+            return await Collection.FindOneAndDeleteAsync(filter);
         }
     }
 }

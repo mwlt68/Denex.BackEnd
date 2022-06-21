@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Wrappers
 {
-    public class ServiceResponse<T> 
+    public class ServiceResponse<T> : BaseResponse
     {
         public T Value { get; set; }
-        public ServiceResponse(T value)
+        public ServiceResponse(bool success = true, string message = null) : base(success, message)
+        {
+        }
+        public ServiceResponse(T value, bool success = true, string message = null):base(success, message)
         {
             Value = value;
         }

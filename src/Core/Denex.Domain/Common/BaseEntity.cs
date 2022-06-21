@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,14 +11,16 @@ using System.Threading.Tasks;
 
 namespace Denex.Domain.Common
 {
-    public class BaseEntity
+    [BsonIgnoreExtraElements]
+    public class BaseEntity : IBaseEntity<string>
     {
-        [Key]
-        public int Id { get; set; }
-        public DateTime CreateDate { get
-            {
-                return DateTime.Now;
-            }
-            set { } }
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId]
+        public string Id { get; set; }
+//            ObjectId.GenerateNewId().ToString();
+
+        [BsonRepresentation(BsonType.DateTime)]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
