@@ -16,8 +16,7 @@ namespace Denex.Domain.Common
     {
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonId]
-        public string Id { get; set; }
-//            ObjectId.GenerateNewId().ToString();
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
