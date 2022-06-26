@@ -1,5 +1,6 @@
 ﻿using Denex.Application.Repository;
 using Denex.Domain.Common;
+using Denex.Persistance.Extensions;
 using Denex.Persistance.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -17,8 +18,8 @@ namespace Denex.Persistance.Repositories
             this.settings = options.Value;
             var client = new MongoClient(settings.ConnectionString);
             var db = client.GetDatabase(settings.Database);
-            string a = typeof(T).Name.ToLowerInvariant();
-            this.Collection = db.GetCollection<T>(a);
+            string className = typeof(T).Name;
+            this.Collection = db.GetCollection<T>(className);
         }
         public virtual async Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate)
         {
@@ -47,9 +48,9 @@ namespace Denex.Persistance.Repositories
             return (await Collection.BulkWriteAsync((IEnumerable<WriteModel<T>>)entities, options)).IsAcknowledged;
         }
 
-        public virtual async Task<T> UpdateAsync(string id, T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
-            return await Collection.FindOneAndReplaceAsync(x => x.Id == id, entity);
+            return await Collection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
         }
 
         public virtual async Task<T> UpdateAsync(T entity, Expression<Func<T, bool>> predicate)
