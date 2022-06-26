@@ -11,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Denex.Application.Features.Commands.UserInsert
+namespace Denex.Application.Features.Commands.Users.UserInsert
 {
-    public class UserInsertCommand :IRequest<ServiceResponse<UserAuthenticationDto>>
+    public class UserInsertCommand : IRequest<ServiceResponse<UserAuthenticationDto>>
     {
         public string Username { get; set; }
         public string Password { get; set; }
