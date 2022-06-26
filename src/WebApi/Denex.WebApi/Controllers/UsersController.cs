@@ -1,4 +1,4 @@
-﻿using Denex.Application.Features.Commands.UserInsert;
+﻿using Denex.Application.Features.Commands.Users.UserInsert;
 using Denex.Application.Features.Queries.UserAuthentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -1,4 +1,5 @@
-﻿using Denex.Application.Interfaces.Service;
+﻿using Denex.Application.Interfaces.Repository;
+using Denex.Application.Interfaces.Service;
 using Denex.Application.Repository;
 using Denex.Persistance.Extensions;
 using Denex.Persistance.Repositories;
@@ -31,6 +32,7 @@ namespace Denex.Persistance
             });
  //           services.Configure<MongoDbSettings>(options => configuration.GetSection("MongoDbSettings"));
             services.AddTransient<IUserRepository, UserRespository>();
+            services.AddTransient<IPracticeSchemaRepository, PracticeSchemaRepository>();
         }
     }
 }

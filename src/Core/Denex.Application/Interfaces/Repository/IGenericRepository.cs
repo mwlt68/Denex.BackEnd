@@ -15,7 +15,7 @@ namespace Denex.Application.Repository
         Task<T> GetByIdAsync(TKey id);
         Task<T> AddAsync(T entity);
         Task<bool> AddRangeAsync(IEnumerable<T> entities);
-        Task<T> UpdateAsync(TKey id, T entity);
+        Task<T> UpdateAsync(T entity);
         Task<T> UpdateAsync(T entity, Expression<Func<T, bool>> predicate);
         Task<T> DeleteAsync(T entity);
         Task<T> DeleteAsync(TKey id);
