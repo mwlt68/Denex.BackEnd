@@ -50,7 +50,11 @@ namespace Denex.Persistance.Repositories
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            return await Collection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
+            var options = new FindOneAndReplaceOptions<T>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            return await Collection.FindOneAndReplaceAsync<T>(x => x.Id == entity.Id, entity, options);
         }
 
         public virtual async Task<T> UpdateAsync(T entity, Expression<Func<T, bool>> predicate)
