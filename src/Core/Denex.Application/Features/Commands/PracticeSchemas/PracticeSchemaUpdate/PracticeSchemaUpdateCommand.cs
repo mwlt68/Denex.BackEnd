@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Denex.Application.Dto;
+using Denex.Application.Exceptions;
 using Denex.Application.Interfaces.Repository;
 using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
@@ -38,7 +39,7 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpda
                     var updatedPracticeSchema = await practiceSchemaRep.UpdateAsync(practiceSchema);
                     return new ServiceResponse<PracticeSchema>(updatedPracticeSchema);
                 }
-                else return new ServiceResponse<PracticeSchema>(true, "Sınav türü bulunamadı !");
+                else throw new PracticeSchemaNotFoundException();
             }
         }
     }

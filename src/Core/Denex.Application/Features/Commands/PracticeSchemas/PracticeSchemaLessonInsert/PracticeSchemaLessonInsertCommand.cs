@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Denex.Application.Exceptions;
 using Denex.Application.Interfaces.Repository;
 using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
@@ -33,10 +34,7 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLess
                 if (practiceSchema != null)
                 {
                     var lessonSchema = mapper.Map<LessonSchema>(request);
-                    if (practiceSchema.Lessons == null)
-                    {
-                        practiceSchema.Lessons = new List<LessonSchema>();
-                    }
+                    lessonSchema.Subjects = lessonSchema.Subjects.Distinct().ToList();
                     practiceSchema.Lessons.Add(lessonSchema);
                     var practiceSchemaUpdated = await practiceSchemaRep.UpdateAsync(practiceSchema);
                     if (practiceSchemaUpdated != null)
@@ -44,9 +42,9 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLess
                         var lesson = practiceSchemaUpdated.Lessons.FirstOrDefault(l => l.Id == lessonSchema.Id);
                         return new ServiceResponse<LessonSchema>(lesson);
                     }
-                    return new ServiceResponse<LessonSchema>(false, "Hata meydana geldi !");
+                    throw new LessonException("Lesson update error !");
                 }
-                return new ServiceResponse<LessonSchema>(false, "Deneme tipi bulunamadı !");
+                throw new PracticeSchemaNotFoundException();
             }
         }
     }

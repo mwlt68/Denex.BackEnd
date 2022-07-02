@@ -2,12 +2,14 @@ using Denex.Application;
 using Denex.Application.Features.Commands.Users.UserInsert;
 using Denex.Persistance;
 using Denex.Persistance.Attributes;
+using Denex.WebApi.Middlewares;
 using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddCors();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistanceServices(builder.Configuration);
@@ -29,7 +31,7 @@ app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseHttpsRedirection();
 

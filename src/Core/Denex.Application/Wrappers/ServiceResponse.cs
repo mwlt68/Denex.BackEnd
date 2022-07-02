@@ -8,16 +8,21 @@ namespace Denex.Application.Wrappers
 {
     public class ServiceResponse<T> : BaseResponse
     {
-        public T Value { get; set; }
-        public ServiceResponse(string message,bool success=false) : base(success, message)
-        {
-        }
+        public T? Value { get; set; }
+
         public ServiceResponse(bool success = true, string message = null) : base(success, message)
         {
         }
-        public ServiceResponse(T value, bool success = true, string message = null):base(success, message)
+        public ServiceResponse(T? value, bool success = true, string message = null):base(success, message)
         {
             Value = value;
+        }
+    }
+
+    public class VoidServiceResponse : BaseResponse
+    {
+        public VoidServiceResponse(bool success = true, string message = null) : base(success, message)
+        {
         }
     }
 }

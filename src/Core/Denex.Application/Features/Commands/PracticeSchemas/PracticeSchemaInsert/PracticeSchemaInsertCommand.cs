@@ -25,6 +25,13 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInse
             public async Task<ServiceResponse<PracticeSchema>> Handle(PracticeSchemaInsertCommand request, CancellationToken cancellationToken)
             {
                 var practiceSchema = mapper.Map<PracticeSchema>(request);
+                if (practiceSchema?.Lessons != null)
+                {
+                    practiceSchema.Lessons.ForEach(x =>
+                    {
+                        x.Subjects= x.Subjects.Distinct().ToList();
+                    });
+                }
                 var insertResult = await practiceSchemaRep.AddAsync(practiceSchema);
                 return new ServiceResponse<PracticeSchema>(insertResult);
             }

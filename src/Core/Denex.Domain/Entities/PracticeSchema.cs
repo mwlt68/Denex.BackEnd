@@ -14,7 +14,7 @@ namespace Denex.Domain.Entities
         [BsonElement("name")]
         public string Name { get; set; }
         [BsonElement("lessons")]
-        public List<LessonSchema> Lessons { get; set; } = null;
+        public List<LessonSchema> Lessons { get; set; }
     }
 
     public class LessonSchema: BaseEntity
@@ -24,6 +24,6 @@ namespace Denex.Domain.Entities
         [BsonElement("questionCount")]
         public int QuestionCount { get; set; }
         [BsonElement("subjects")]
-        public List<String> Subjects { get; set; } = null;
+        public List<String> Subjects { get; set; }
     }
 }
