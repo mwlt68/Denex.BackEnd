@@ -16,6 +16,12 @@ namespace Denex.WebApi.Controllers
         {
             this.mediator = mediator;
         }
+        
+        [HttpGet]
+        public IActionResult CheckServer()
+        {
+            return Ok("Service is running");
+        }
 
         [HttpPost]
         public async Task<IActionResult> AuthenticationAsync(UserAuthenticationQuery userAuthentication)
