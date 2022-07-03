@@ -13,9 +13,11 @@ namespace Denex.Application.Features.Commands.Users.UserInsert
         {
             // TODO create const class for numeric values
             RuleFor(u => u.Username)
+                .NotNull()
                 .Length(7, 30)
                 .WithErrorCode("Kullanıcı adı 7-30 karakter arasında olmalıdır !");
             RuleFor(u => u.Password)
+                .NotNull()
                 .Length(7, 30)
                 .WithMessage("Parolanız adı 7-30 karakter arasında olmalıdır !")
                 .Matches(@"[A-Z]+").WithMessage("Parolanız en az bir büyük harf içermelidir !")

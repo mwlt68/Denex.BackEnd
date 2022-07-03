@@ -15,6 +15,7 @@ namespace Denex.Persistance
     {
         public static void AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddCustomSwaggerGen();
             #region JWT
             
             services.Configure<JwtSettings>(settings=>
@@ -25,7 +26,6 @@ namespace Denex.Persistance
             services.AddCustomJwtToken(jwtKey);
             services.AddSingleton<IJwtService, JwtService>();
             #endregion
-            services.AddCustomSwaggerGen();
             services.Configure<MongoDbSettings>(settings =>
             {
                 configuration.GetSection("MongoDbSettings").Bind(settings);

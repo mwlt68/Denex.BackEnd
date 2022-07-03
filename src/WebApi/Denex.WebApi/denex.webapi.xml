@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Denex.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Denex.WebApi.Controllers.UsersController.CheckServer">
+            <summary>
+            Chech the api is running on the server
+            </summary>
+        </member>
+        <member name="M:Denex.WebApi.Controllers.UsersController.AuthenticationAsync(Denex.Application.Features.Queries.UserAuthentication.UserAuthenticationQuery)">
+            <summary>
+            Return token for project authentication.
+            </summary>
+            <remarks>
+            To access some endpoints is to get token with username and password.
+            </remarks>
+        </member>
+        <member name="M:Denex.WebApi.Controllers.UsersController.InsertAsync(Denex.Application.Features.Commands.Users.UserInsert.UserInsertCommand)">
+            <summary>
+            Create a User based on the requested data.
+            </summary>
+            <remarks>
+            Return authentication token of the created user.
+            </remarks>
+        </member>
+    </members>
+</doc>

@@ -1,14 +1,19 @@
-﻿using Denex.Application.Features.Commands.Users.UserInsert;
+﻿using Denex.Application.Dto;
+using Denex.Application.Features.Commands.Users.UserInsert;
 using Denex.Application.Features.Queries.UserAuthentication;
+using Denex.Application.Wrappers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Denex.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class UsersController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -16,24 +21,46 @@ namespace Denex.WebApi.Controllers
         {
             this.mediator = mediator;
         }
-        
+
+        /// <summary>
+        /// Chech the api is running on the server
+        /// </summary>
         [HttpGet]
         public IActionResult CheckServer()
         {
             return Ok("Service is running");
         }
 
+        /// <summary>
+        /// Return token for project authentication.
+        /// </summary>
+        /// <remarks>
+        /// To access some endpoints is to get token with username and password.
+        /// </remarks>
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ServiceResponse<UserAuthenticationDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> AuthenticationAsync(UserAuthenticationQuery userAuthentication)
+        public async Task<IActionResult> AuthenticationAsync([FromBody] UserAuthenticationQuery userAuthentication)
         {
             var result = await mediator.Send(userAuthentication);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Create a User based on the requested data.
+        /// </summary>
+        /// <remarks>
+        /// Return authentication token of the created user.
+        /// </remarks>
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ServiceResponse<UserAuthenticationDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> InsertAsync(UserInsertCommand userInsertCommand)
+        public async Task<IActionResult> InsertAsync([FromBody] UserInsertCommand userInsertCommand)
         {
             var result = await mediator.Send(userInsertCommand);
-            return Ok(result);
+            return StatusCode(StatusCodes.Status201Created, result);
         }
     }
 }
