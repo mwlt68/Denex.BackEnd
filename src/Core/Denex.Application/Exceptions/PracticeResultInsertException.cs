@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Exceptions
 {
-    public sealed class LessonSchemaNotFound : NotFoundException
+    public class PracticeResultInsertException : BadRequestException
     {
-        public LessonSchemaNotFound(string ? message = "Lesson Schema Not Found !") : base(message)
+        public PracticeResultInsertException(string message= "Practice result insert exception !") : base(message)
         {
         }
     }

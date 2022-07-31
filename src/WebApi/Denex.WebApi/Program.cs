@@ -8,10 +8,10 @@ using FluentValidation.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors();
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddApplicationServices();
-builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services
     .AddControllers(options => options.Filters.Add<ValidationFilter>())
     // In your code with any class derived from AbstractValidator from another assembly, it will register all validators from that assembly
@@ -19,6 +19,7 @@ builder.Services
             configuration.RegisterValidatorsFromAssemblyContaining<UserInsertCommandValidator>())
     .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddPersistanceServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

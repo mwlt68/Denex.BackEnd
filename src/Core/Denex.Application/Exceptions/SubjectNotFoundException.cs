@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Exceptions
 {
-    public sealed class LessonSchemaNotFound : NotFoundException
+    public class SubjectNotFoundException : NotFoundException
     {
-        public LessonSchemaNotFound(string ? message = "Lesson Schema Not Found !") : base(message)
+        public SubjectNotFoundException(string? message = "Subject Not Found") : base(message)
         {
+
         }
     }
 }

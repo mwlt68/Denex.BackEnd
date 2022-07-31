@@ -33,6 +33,7 @@ namespace Denex.Persistance
  //           services.Configure<MongoDbSettings>(options => configuration.GetSection("MongoDbSettings"));
             services.AddTransient<IUserRepository, UserRespository>();
             services.AddTransient<IPracticeSchemaRepository, PracticeSchemaRepository>();
+            services.AddTransient<IPracticeResultRepository, PracticeResultRepository>();
         }
     }
 }

@@ -5,16 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert
+namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert
 {
-    public class PracticeSchemaInsertValidation : AbstractValidator<PracticeSchemaInsertCommand>
+    public class PracticeResultInsertCommandValidation : AbstractValidator<PracticeResultInsertCommand>
     {
-        public PracticeSchemaInsertValidation()
+        public PracticeResultInsertCommandValidation()
         {
-            RuleFor(x => x.Lessons)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Deneme sınavı mutlaka ders içermelidir !");
+
+            /*
             RuleForEach(x => x.Lessons).ChildRules(y =>
             {
                 y.RuleFor(x => x.QuestionCount)
@@ -25,6 +23,7 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInse
                 .NotEmpty()
                 .WithMessage("Ders mutlaka konu içermelidir !");
             });
+            */
         }
     }
 }
