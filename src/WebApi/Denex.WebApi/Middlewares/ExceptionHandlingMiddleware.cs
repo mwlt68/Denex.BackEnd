@@ -1,4 +1,5 @@
-﻿using Denex.Domain.Exceptions;
+﻿using Denex.Application.Wrappers;
+using Denex.Domain.Exceptions;
 using System.Text.Json;
 
 namespace Denex.WebApi.Middlewares
@@ -27,9 +28,10 @@ namespace Denex.WebApi.Middlewares
                 InternalServerException => StatusCodes.Status500InternalServerError,
                 _ => StatusCodes.Status500InternalServerError,
             };
-            var response = new
+            var response = new VoidServiceResponse
             {
-                error = ex.Message
+                Success = false,
+                Message = ex.Message
             };
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }

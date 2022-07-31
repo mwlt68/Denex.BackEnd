@@ -38,8 +38,8 @@ namespace Denex.WebApi.Controllers
         /// To access some endpoints is to get token with username and password.
         /// </remarks>
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ServiceResponse<UserAuthenticationDto>))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(VoidServiceResponse))]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(VoidServiceResponse))]
         [HttpPost]
         public async Task<IActionResult> AuthenticationAsync([FromBody] UserAuthenticationQuery userAuthentication)
         {
@@ -54,8 +54,8 @@ namespace Denex.WebApi.Controllers
         /// Return authentication token of the created user.
         /// </remarks>
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ServiceResponse<UserAuthenticationDto>))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(VoidServiceResponse))]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(VoidServiceResponse))]
         [HttpPost]
         public async Task<IActionResult> InsertAsync([FromBody] UserInsertCommand userInsertCommand)
         {

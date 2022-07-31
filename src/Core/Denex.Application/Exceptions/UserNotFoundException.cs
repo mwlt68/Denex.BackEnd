@@ -9,7 +9,7 @@ namespace Denex.Application.Exceptions
 {
     public class UserNotFoundException : NotFoundException
     {
-        public UserNotFoundException() : base("User Not Found !")
+        public UserNotFoundException(string? message = "User Not Found !") : base(message)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using Denex.Application.Dto;
+using Denex.Application.Exceptions;
 using Denex.Application.Interfaces.Service;
 using Denex.Application.Repository;
 using Denex.Application.Wrappers;
@@ -39,7 +40,7 @@ namespace Denex.Application.Features.Queries.UserAuthentication
                     };
                     return new ServiceResponse<UserAuthenticationDto>(authenticateDto);
                 }
-                else return new ServiceResponse<UserAuthenticationDto>(false,"Kullanıcı adı yada parola hatalı !");
+                else throw new UserNotFoundException("Kullanıcı adı yada parola hatalı !");
             }
         }
     }
