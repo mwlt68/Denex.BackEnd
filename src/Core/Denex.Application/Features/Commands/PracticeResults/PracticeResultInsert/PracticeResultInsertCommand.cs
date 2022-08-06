@@ -15,7 +15,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInse
 {
     public class PracticeResultInsertCommand : IRequest<ServiceResponse<PracticeResultDetailDto>>
     {
-        public string? PracticeSchemaId { get; set; } = null;
+        public string PracticeSchemaId { get; set; }
         public string? Publisher { get; set; } = null;
         public string? Title { get; set; } = null;
         public string? Note { get; set; } = null;

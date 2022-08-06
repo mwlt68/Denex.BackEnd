@@ -8,6 +8,6 @@ namespace Denex.Domain.Exceptions
 {
     public class InternalServerException:Exception
     {
-        public InternalServerException(string message) : base(message) { }
+        public InternalServerException(string? message = "Internal Server Error !") : base(message) { }
     }
 }

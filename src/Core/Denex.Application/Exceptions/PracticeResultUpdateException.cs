@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Exceptions
 {
-    public class PracticeResultInsertException : InternalServerException
+    public class PracticeResultUpdateException : InternalServerException
     {
-        public PracticeResultInsertException(string message= "Practice result insert exception !") : base(message)
+        public PracticeResultUpdateException(string message = "Practice Result Update !") : base(message)
         {
         }
     }

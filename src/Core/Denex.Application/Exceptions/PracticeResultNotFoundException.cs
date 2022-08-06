@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Denex.Application.Exceptions
 {
-    public class PracticeResultInsertException : InternalServerException
+    public class PracticeResultNotFoundException :NotFoundException
     {
-        public PracticeResultInsertException(string message= "Practice result insert exception !") : base(message)
+        public PracticeResultNotFoundException(string? message = "Practice Result Not Found !") : base(message)
         {
+
         }
     }
 }
