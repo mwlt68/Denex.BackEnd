@@ -1,4 +1,6 @@
 ﻿using Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert;
+using Denex.Application.Features.Commands.PracticeResults.PracticeResultUpdate;
+using Denex.Application.Features.Queries.PracticeResult.PracticeResultList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,13 @@ namespace Denex.WebApi.Controllers
             this.mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await mediator.Send(new PracticeResultListQuery());
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> InsertAsync(PracticeResultInsertCommand practiceResultInsert)
         {
@@ -25,9 +34,9 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(PracticeResultInsertCommand practiceResultInsert)
+        public async Task<IActionResult> UpdateAsync(PracticeResultUpdateCommand practiceResultUpdateCommand)
         {
-            var result = await mediator.Send(practiceResultInsert);
+            var result = await mediator.Send(practiceResultUpdateCommand);
             return Ok(result);
         }
     }
