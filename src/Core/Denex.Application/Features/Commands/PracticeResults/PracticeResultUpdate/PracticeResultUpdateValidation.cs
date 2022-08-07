@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert
+namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultUpdate
 {
-    public class PracticeResultInsertCommandValidation : AbstractValidator<PracticeResultInsertCommand>
+    public class PracticeResultUpdateValidation : AbstractValidator<PracticeResultUpdateCommand>
     {
-        public PracticeResultInsertCommandValidation()
+        public PracticeResultUpdateValidation()
         {
-
             // Eger Duration null değil ise 0 eşit yada  büyük olmalıdır !
 
             RuleFor(x => x.Duration)
@@ -18,7 +17,6 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInse
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Practice result must contain lesson !");
-
         }
     }
 }

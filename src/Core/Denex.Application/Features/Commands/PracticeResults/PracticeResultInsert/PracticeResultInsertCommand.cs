@@ -7,9 +7,6 @@ using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
 using Denex.Domain.EntityExtensions;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Security.Claims;
 
 namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert
 {
@@ -19,7 +16,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInse
         public string? Publisher { get; set; } = null;
         public string? Title { get; set; } = null;
         public string? Note { get; set; } = null;
-        public int Duration { get; set; } = 0;
+        public int? Duration { get; set; } = null;
         public List<LessonResult> LessonResults { get; set; }
 
 

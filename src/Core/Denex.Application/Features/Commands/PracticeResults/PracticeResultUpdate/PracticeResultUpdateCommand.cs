@@ -16,7 +16,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultUpda
         public string? Publisher { get; set; } = null;
         public string? Title { get; set; } = null;
         public string? Note { get; set; } = null;
-        public int Duration { get; set; } = 0;
+        public int? Duration { get; set; } = null;
         public List<LessonResult> LessonResults { get; set; }
 
 

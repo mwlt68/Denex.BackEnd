@@ -6,7 +6,6 @@ using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Denex.WebApi.Controllers
 {

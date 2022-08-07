@@ -8,16 +8,23 @@ namespace Denex.Domain.Entities
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string PracticeSchemaId { get; set; }
+
         [BsonElement("publisher")]
         public string? Publisher { get; set; } = null;
+
         [BsonElement("title")]
         public string? Title { get; set; } = null;
+
         [BsonElement("note")]
         public string? Note { get; set; } = null;
+
         [BsonElement("duration")]
-        public int Duration { get; set; }
+        public int? Duration { get; set; } = null;
+
+
         [BsonElement("lessonResults")]
         public List<LessonResult> LessonResults { get; set; }
 

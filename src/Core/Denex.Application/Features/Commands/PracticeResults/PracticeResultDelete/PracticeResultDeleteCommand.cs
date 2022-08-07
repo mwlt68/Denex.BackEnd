@@ -8,7 +8,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultDele
 {
     public class PracticeResultDeleteCommand: IRequest<ServiceResponse<PracticeResult>>
     {
-        public string PracticeResultId { get; set; }
+        public string Id { get; set; }
         public class PracticeResultDeleteCommandHandler : IRequestHandler<PracticeResultDeleteCommand, ServiceResponse<PracticeResult>>
         {
             private readonly IPracticeResultRepository practiceResultRepository;
@@ -21,7 +21,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultDele
             public async Task<ServiceResponse<PracticeResult>> Handle(PracticeResultDeleteCommand request, CancellationToken cancellationToken)
             {
                 var userId = httpContextService.GetUserIdFromClaims();
-                var deletedPracticeResult = await practiceResultRepository.DeleteAsync(x=> x.Id == request.PracticeResultId && x.UserId == userId);
+                var deletedPracticeResult = await practiceResultRepository.DeleteAsync(x=> x.Id == request.Id && x.UserId == userId);
                 return new ServiceResponse<PracticeResult>(deletedPracticeResult);
             }
         }

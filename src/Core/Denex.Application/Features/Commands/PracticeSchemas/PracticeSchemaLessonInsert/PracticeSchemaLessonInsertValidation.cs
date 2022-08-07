@@ -8,11 +8,12 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLess
         {
             RuleFor(x=> x.QuestionCount)
                 .GreaterThan(0)
-                .WithMessage("Soru sayısı sıfırdan büyük olmalı !");
+                .WithMessage("Question count must bigger then zero !");
+
             RuleFor(x => x.Subjects)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Ders mutlaka konu içermelidir !");
+                .WithMessage("The lesson must contain subject !");
         }
     }
 }

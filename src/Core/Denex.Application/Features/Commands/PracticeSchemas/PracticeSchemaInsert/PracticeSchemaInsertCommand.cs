@@ -10,6 +10,8 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInse
     public class PracticeSchemaInsertCommand : IRequest<ServiceResponse<PracticeSchema>>
     {
         public DateTime? ExamDate { get; set; } = null;
+        public int? NetCalculationRate { get; set; } = null;
+        public int? Duration { get; set; } = null;
         public string Name { get; set; }
         public List<LessonSchemaInsertDto> Lessons { get; set; }
 

@@ -10,9 +10,18 @@ namespace Denex.Domain.Entities
 {
     public class PracticeSchema: BaseEntity
     {
+        [BsonElement("exam_date")]
         public DateTime? ExamDate { get; set; } = null;
+        
         [BsonElement("name")]
         public string Name { get; set; }
+
+        [BsonElement("net_calculation_rate")]
+        public int? NetCalculationRate { get; set; } = null;
+
+        [BsonElement("duration")]
+        public int? Duration { get; set; } = null;
+
         [BsonElement("lessons")]
         public List<LessonSchema> Lessons { get; set; }
     }
