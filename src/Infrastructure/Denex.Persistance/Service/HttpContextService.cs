@@ -1,4 +1,5 @@
-﻿using Denex.Application.Interfaces.Service;
+﻿using Denex.Application.Exceptions;
+using Denex.Application.Interfaces.Service;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -11,9 +12,12 @@ namespace Denex.Persistance.Service
         {
             this.contextAccessor = contextAccessor;
         }
-        public string? GetUserIdFromClaims()
+        public string GetUserIdFromClaims()
         {
-            return contextAccessor?.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+            var userId = contextAccessor?.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+            if (userId == null)
+                throw new UserNotFoundException();
+            else return userId;
         }
     }
 }

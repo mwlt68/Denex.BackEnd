@@ -2,6 +2,6 @@
 {
     public interface IHttpContextService
     {
-        public string? GetUserIdFromClaims();
+        public string GetUserIdFromClaims();
     }
 }

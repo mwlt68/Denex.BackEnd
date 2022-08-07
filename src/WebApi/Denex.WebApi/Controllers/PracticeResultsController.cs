@@ -33,7 +33,7 @@ namespace Denex.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> UpdateAsync(PracticeResultUpdateCommand practiceResultUpdateCommand)
         {
             var result = await mediator.Send(practiceResultUpdateCommand);
