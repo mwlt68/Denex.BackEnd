@@ -39,5 +39,12 @@ namespace Denex.WebApi.Controllers
             var result = await mediator.Send(practiceResultUpdateCommand);
             return Ok(result);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(PracticeResultUpdateCommand practiceResultUpdateCommand)
+        {
+            var result = await mediator.Send(practiceResultUpdateCommand);
+            return Ok(result);
+        }
     }
 }
