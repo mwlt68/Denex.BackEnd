@@ -28,18 +28,13 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInse
             private readonly IPracticeResultRepository practiceResultRepo;
             private readonly IPracticeSchemaRepository practiceSchemaRepo;
             private readonly IMapper mapper;
-            private readonly string userId;
-            public PracticeResultInsertCommandHandler(IMapper mapper, IHttpContextAccessor httpContextAccessor, IPracticeSchemaRepository practiceSchemaRepo,IPracticeResultRepository practiceResultRepo)
+            private readonly IHttpContextService httpContextService;
+            public PracticeResultInsertCommandHandler(IMapper mapper, IHttpContextService httpContextService, IPracticeSchemaRepository practiceSchemaRepo,IPracticeResultRepository practiceResultRepo)
             {
                 this.practiceResultRepo = practiceResultRepo;
                 this.practiceSchemaRepo= practiceSchemaRepo;
                 this.mapper = mapper;
-                var userIdClaim = httpContextAccessor?.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-                if (userIdClaim != null)
-                {
-                    userId = userIdClaim.Value;
-                }
-                else throw new UserNotFoundException();
+                this.httpContextService = httpContextService;
             }
             public async Task<ServiceResponse<PracticeResultDetailDto>> Handle(PracticeResultInsertCommand request, CancellationToken cancellationToken)
             {
@@ -47,7 +42,7 @@ namespace Denex.Application.Features.Commands.PracticeResults.PracticeResultInse
                 if (practiceSchema != null)
                 {
                     PracticeResult practiceResult=mapper.Map<PracticeResult>(request);
-                    practiceResult.UserId = userId;
+                    practiceResult.UserId = httpContextService.GetUserIdFromClaims();
                     string? compareResult = practiceResult.LessonResults.Compare(practiceSchema.Lessons);
                     if (compareResult == null)
                     {
