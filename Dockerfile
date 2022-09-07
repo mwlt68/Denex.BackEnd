@@ -17,7 +17,6 @@ COPY src/Core/Denex.Application/. ./src/Core/Denex.Application/
 COPY src/Infrastructure/Denex.Persistance/. ./src/Infrastructure/Denex.Persistance/
 
 WORKDIR /app/src/WebApi/Denex.WebApi
-#RUN dotnet publish -c Debug -o out
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy AS runtime
