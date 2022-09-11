@@ -1,4 +1,5 @@
-﻿using Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert;
+﻿using Denex.Application.Features.Commands.PracticeResults.PracticeResultDelete;
+using Denex.Application.Features.Commands.PracticeResults.PracticeResultInsert;
 using Denex.Application.Features.Commands.PracticeResults.PracticeResultUpdate;
 using Denex.Application.Features.Queries.PracticeResult.PracticeResultList;
 using MediatR;
@@ -41,9 +42,9 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(PracticeResultUpdateCommand practiceResultUpdateCommand)
+        public async Task<IActionResult> DeleteAsync(PracticeResultDeleteCommand practiceResultDeleteCommand)
         {
-            var result = await mediator.Send(practiceResultUpdateCommand);
+            var result = await mediator.Send(practiceResultDeleteCommand);
             return Ok(result);
         }
     }
