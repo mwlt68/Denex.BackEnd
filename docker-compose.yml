@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  denex-service:
+    container_name: denex
+    build: .
+    ports:
+      - 3003:80
+  mongodb-service:
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - denex-data:/data/db
+  mongo-seed:
+    build: ./mongo-seed
+    depends_on:
+      - mongodb-service
+volumes:
+  denex-data:
