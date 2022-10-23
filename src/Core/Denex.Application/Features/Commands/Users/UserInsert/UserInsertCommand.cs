@@ -41,6 +41,8 @@ namespace Denex.Application.Features.Commands.Users.UserInsert
                     };
                     return new ServiceResponse<UserAuthenticationDto>(authenticateDto);
                 }
+
+                // TODO throw new exception and add test 
                 else return new ServiceResponse<UserAuthenticationDto>(false, "Kullanıcı ekleme sırasında hata meydana geldi !");
             }
         }

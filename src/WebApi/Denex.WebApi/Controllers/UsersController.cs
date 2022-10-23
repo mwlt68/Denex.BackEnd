@@ -3,8 +3,6 @@ using Denex.Application.Features.Commands.Users.UserInsert;
 using Denex.Application.Features.Queries.UserAuthentication;
 using Denex.Application.Wrappers;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -41,7 +39,7 @@ namespace Denex.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(VoidServiceResponse))]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(VoidServiceResponse))]
         [HttpPost]
-        public async Task<IActionResult> AuthenticationAsync([FromBody] UserAuthenticationQuery userAuthentication)
+        public async Task<ActionResult<ServiceResponse<UserAuthenticationDto>>> AuthenticationAsync([FromBody] UserAuthenticationQuery userAuthentication)
         {
             var result = await mediator.Send(userAuthentication);
             return Ok(result);
@@ -57,10 +55,10 @@ namespace Denex.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(VoidServiceResponse))]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(VoidServiceResponse))]
         [HttpPost]
-        public async Task<IActionResult> InsertAsync([FromBody] UserInsertCommand userInsertCommand)
+        public async Task<ActionResult<ServiceResponse<UserAuthenticationDto>>> InsertAsync([FromBody] UserInsertCommand userInsertCommand)
         {
             var result = await mediator.Send(userInsertCommand);
-            return StatusCode(StatusCodes.Status201Created, result);
+            return CreatedAtAction(nameof(InsertAsync), result);
         }
     }
 }
