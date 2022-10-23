@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{72E973
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denex.WebApi", "src\WebApi\Denex.WebApi\Denex.WebApi.csproj", "{C52223A6-D9C2-4C6D-886D-DE68534E1D37}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{864FA523-36D5-4B06-9356-64380B5925CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.UnitTest", "tests\WebApi.UnitTest\WebApi.UnitTest.csproj", "{A39B0E79-99CC-40E3-B7C0-BC835FE35C49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{C52223A6-D9C2-4C6D-886D-DE68534E1D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52223A6-D9C2-4C6D-886D-DE68534E1D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52223A6-D9C2-4C6D-886D-DE68534E1D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39B0E79-99CC-40E3-B7C0-BC835FE35C49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39B0E79-99CC-40E3-B7C0-BC835FE35C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39B0E79-99CC-40E3-B7C0-BC835FE35C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39B0E79-99CC-40E3-B7C0-BC835FE35C49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{E6467946-4280-4E74-BB0D-7F3929653FB1} = {8DC6AC75-AB02-49F0-AB23-6991C8A46719}
 		{72E97305-7131-4AC6-9DCC-4927930EC767} = {D22CF71E-66E1-4D87-A5BF-1BB1270FA7A2}
 		{C52223A6-D9C2-4C6D-886D-DE68534E1D37} = {72E97305-7131-4AC6-9DCC-4927930EC767}
+		{A39B0E79-99CC-40E3-B7C0-BC835FE35C49} = {864FA523-36D5-4B06-9356-64380B5925CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57B9BB79-5943-455F-ABD4-D597DC2DE9B1}
