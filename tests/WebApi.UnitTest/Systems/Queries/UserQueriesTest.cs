@@ -1,7 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using Denex.Application.Dto;
 using Denex.Application.Exceptions;
