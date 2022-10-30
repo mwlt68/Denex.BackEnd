@@ -32,5 +32,12 @@ namespace WebApi.UnitTest.Fixtures.PracticeSchemaFixtures
             Id = id,
             Name = "Test"
         };
+
+        public static LessonSchema GetLessonSchema(string id,string name,int questionCount, List<string> subjects ) => new LessonSchema(){
+            Id= id,
+            Name = name,
+            QuestionCount = questionCount,
+            Subjects = subjects
+        };
     }
 }

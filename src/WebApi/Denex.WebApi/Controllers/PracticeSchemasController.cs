@@ -51,10 +51,10 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LessonInsertAsync(PracticeSchemaLessonInsertCommand insertCommand)
+        public async Task<ActionResult<ServiceResponse<LessonSchema>>> LessonInsertAsync(PracticeSchemaLessonInsertCommand insertCommand)
         {
             var result = await mediator.Send(insertCommand);
-            return Ok(result);
+            return Created(nameof(LessonInsertAsync),result);
         }
 
         [HttpDelete("id")]

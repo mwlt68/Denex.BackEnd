@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
 using Denex.Application.Wrappers;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebApi.UnitTest.Fixtures.PracticeSchemaFixtures;
 using Xunit;
+using static Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert.PracticeSchemaLessonInsertCommand;
 
 namespace WebApi.UnitTest.Systems.Controllers
 {
@@ -180,5 +182,53 @@ namespace WebApi.UnitTest.Systems.Controllers
             Assert.Equal(serviceResponse.Value!.Id,expected.Id);
         }
 
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439016","Lesson",25,"Subject 1","Subject 2")]
+        public async void LessonInsert_ValidObjectPassed_ReturnsResponseHasCreatedItemAsync(string lessonId, string name, int questionCount,params string[] subjects)
+        {
+            //Arrange
+
+            var expected = PracticeSchemaFixture.GetLessonSchema(lessonId,name,questionCount,subjects.ToList());
+            
+            var mediator = new Mock<IMediator>();
+            mediator.Setup(mdtr=> mdtr.Send(It.IsAny<PracticeSchemaLessonInsertCommand>(),It.IsAny<CancellationToken>()))
+                .ReturnsAsync((PracticeSchemaLessonInsertCommand insertCommand,CancellationToken token) =>{
+                    var schema = PracticeSchemaFixture.GetLessonSchema(lessonId,insertCommand.Name,insertCommand.QuestionCount,insertCommand.Subjects);
+                    return new ServiceResponse<LessonSchema>(schema);
+                });
+            
+            var controller = new PracticeSchemasController(mediator.Object);
+            var insertCommand = new PracticeSchemaLessonInsertCommand(new Guid().ToString(),name,questionCount,subjects.ToList());
+            
+            // Act
+            
+            var insertResult =await controller.LessonInsertAsync(insertCommand);
+            
+            // Assert
+
+            Assert.IsType<CreatedResult>(insertResult.Result);
+
+            var result = insertResult.Result as CreatedResult;
+
+            Assert.IsType<ServiceResponse<LessonSchema>>(result?.Value);
+            
+            var serviceResponse = result?.Value as ServiceResponse<LessonSchema>;
+            Assert.NotNull(serviceResponse?.Value);
+            Assert.Null(serviceResponse!.Message);
+            Assert.True(serviceResponse.Success);
+
+            var schemaModel = serviceResponse.Value!;
+            Assert.Equal(schemaModel.Name,expected.Name);
+            Assert.Equal(schemaModel.Id,expected.Id);
+            Assert.Equal(schemaModel.QuestionCount,expected.QuestionCount);
+            if(expected.Subjects != null )
+            {
+                foreach (var item in expected.Subjects)
+                {
+                    Assert.Contains(item,schemaModel.Subjects);
+                }
+            }
+
+        }
     }
 }
