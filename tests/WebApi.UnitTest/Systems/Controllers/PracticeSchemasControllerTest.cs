@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
@@ -140,6 +141,43 @@ namespace WebApi.UnitTest.Systems.Controllers
             Assert.Equal(schemaModel.Name,expected.Name);
             Assert.Equal(schemaModel.Duration,expected.Duration);
             Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
+        }
+
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014")]
+        public async void Delete_ValidObjectPassed_ReturnsReposneHasItem(string schemaId)
+        {
+            // Arrange
+
+            var expected = PracticeSchemaFixture.Get(schemaId);
+
+            var mediator = new Mock<IMediator>();
+            mediator.Setup(mdtr=> mdtr.Send(It.IsAny<PracticeSchemaDeleteCommand>(),It.IsAny<CancellationToken>()))
+                .ReturnsAsync((PracticeSchemaDeleteCommand deleteCommand,CancellationToken token) =>{
+                    var schema = PracticeSchemaFixture.Get(deleteCommand.Id);
+                    return new ServiceResponse<PracticeSchema>(schema);
+                });
+
+            var controller = new PracticeSchemasController(mediator.Object);
+            
+            // Act
+            
+            var deleteResult = await controller.DeleteAsync(schemaId);
+
+            // Assert
+
+            Assert.IsType<OkObjectResult>(deleteResult.Result);
+
+            var result = deleteResult.Result as OkObjectResult;
+
+            Assert.IsType<ServiceResponse<PracticeSchema>>(result?.Value);
+            
+            var serviceResponse = result?.Value as ServiceResponse<PracticeSchema>;
+
+            Assert.NotNull(serviceResponse?.Value);
+            Assert.Null(serviceResponse!.Message);
+            Assert.True(serviceResponse.Success);
+            Assert.Equal(serviceResponse.Value!.Id,expected.Id);
         }
 
     }

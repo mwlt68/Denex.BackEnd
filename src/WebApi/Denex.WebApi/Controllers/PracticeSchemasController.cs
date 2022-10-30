@@ -43,7 +43,7 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpDelete("id")]
-        public async Task<IActionResult> DeleteAsync(string id)
+        public async Task<ActionResult<ServiceResponse<PracticeSchema>>> DeleteAsync(string id)
         {
             var deleteCommand = new PracticeSchemaDeleteCommand() { Id = id};
             var result = await mediator.Send(deleteCommand);

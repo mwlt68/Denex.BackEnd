@@ -28,5 +28,9 @@ namespace WebApi.UnitTest.Fixtures.PracticeSchemaFixtures
                 NetCalculationRate = schemaDuration,
                 Id = schemaId
         };
+        public static PracticeSchema Get(string id) => new PracticeSchema(){
+            Id = id,
+            Name = "Test"
+        };
     }
 }
