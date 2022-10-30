@@ -36,7 +36,7 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateAsync(PracticeSchemaUpdateCommand  updateCommand)
+        public async Task<ActionResult<ServiceResponse<PracticeSchema>>> UpdateAsync(PracticeSchemaUpdateCommand  updateCommand)
         {
             var result = await mediator.Send(updateCommand);
             return Ok(result);

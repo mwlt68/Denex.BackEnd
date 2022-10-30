@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
 using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
@@ -96,6 +97,49 @@ namespace WebApi.UnitTest.Systems.Controllers
             Assert.Equal(schemaModel.Duration,expected.Duration);
             Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
 
+        }
+
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014","schema",null,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,4)]
+        public async void Update_ValidObjectPassed_ReturnsReposneHasItem(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
+        {
+            // Arrange
+
+            var mediator = new Mock<IMediator>();
+            var expected = PracticeSchemaFixture.Get(schemaId,schemaName,schemaNetCalculationRate,schemaDuration);
+            mediator.Setup(mdtr=> mdtr.Send(It.IsAny<PracticeSchemaUpdateCommand>(),It.IsAny<CancellationToken>()))
+                .ReturnsAsync((PracticeSchemaUpdateCommand updateCommand,CancellationToken token) =>{
+                    var schema = PracticeSchemaFixture.Get(updateCommand.Id,updateCommand.Name,updateCommand.NetCalculationRate,updateCommand.Duration);
+                    return new ServiceResponse<PracticeSchema>(schema);
+                });
+
+            var controller = new PracticeSchemasController(mediator.Object);
+            var updateCommand =  new PracticeSchemaUpdateCommand(schemaId,schemaName,schemaNetCalculationRate,schemaDuration,DateTime.MaxValue);
+            
+            // Act
+            
+            var updateResult = await controller.UpdateAsync(updateCommand);
+
+            // Assert
+
+            Assert.IsType<OkObjectResult>(updateResult.Result);
+
+            var result = updateResult.Result as OkObjectResult;
+
+            Assert.IsType<ServiceResponse<PracticeSchema>>(result?.Value);
+            
+            var serviceResponse = result?.Value as ServiceResponse<PracticeSchema>;
+
+            Assert.NotNull(serviceResponse?.Value);
+            Assert.Null(serviceResponse!.Message);
+            Assert.True(serviceResponse.Success);
+
+            var schemaModel = serviceResponse.Value!;
+            Assert.Equal(schemaModel.Name,expected.Name);
+            Assert.Equal(schemaModel.Duration,expected.Duration);
+            Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
         }
 
     }
