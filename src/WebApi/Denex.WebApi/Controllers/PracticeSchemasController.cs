@@ -29,10 +29,10 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertAsync(PracticeSchemaInsertCommand insertCommand)
+        public async Task<ActionResult<ServiceResponse<PracticeSchema>>> InsertAsync(PracticeSchemaInsertCommand insertCommand)
         {
             var result = await mediator.Send(insertCommand);
-            return Ok(result);
+            return Created(nameof(InsertAsync),result);
         }
 
         [HttpPatch]

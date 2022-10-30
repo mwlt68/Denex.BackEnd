@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
 
 namespace WebApi.UnitTest.Fixtures.PracticeSchemaFixtures
 {
-    public class PracticeSchemaFixture
+    public static class PracticeSchemaFixture
     {
-        public static ServiceResponse<List<PracticeSchema>> GetAll(){
+        public static List<PracticeSchema> GetAll(){
             List<PracticeSchema> schemas = new List<PracticeSchema>(){
                 new PracticeSchema(){
                     Id="507f1f77bcf86cd799439012",
@@ -15,7 +14,13 @@ namespace WebApi.UnitTest.Fixtures.PracticeSchemaFixtures
                     Id="507f1f77bcf86cd799439013"
                 },
             };
-            return new ServiceResponse<List<PracticeSchema>>(schemas);
+            return schemas;
         }
+
+        public static PracticeSchema Get(string schemaName,int? schemaNetCalculationRate,int? schemaDuration) => new PracticeSchema(){
+                Name = schemaName,
+                Duration = schemaDuration,
+                NetCalculationRate = schemaDuration
+        };
     }
 }
