@@ -4,6 +4,8 @@ using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonDe
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
+using Denex.Application.Wrappers;
+using Denex.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +22,8 @@ namespace Denex.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllAsync()
+        public async Task<ActionResult<ServiceResponse<List<PracticeSchema>>>> AllAsync()
         {
-            
             var result = await mediator.Send(new PracticeSchemaListQuery());
             return Ok(result);
         }

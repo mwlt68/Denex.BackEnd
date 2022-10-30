@@ -16,8 +16,6 @@ namespace Denex.Application.Features.Queries.PracticeSchemaList
             }
             public async Task<ServiceResponse<List<PracticeSchema>>> Handle(PracticeSchemaListQuery request, CancellationToken cancellationToken)
             {
-
-                var schema = await practiceSchemaRep.GetListAsync(x => x.Id == "62c072cf9d140ae7d7231f34");
                 var schemas = await practiceSchemaRep.GetListAsync(x => true);
                 return new ServiceResponse<List<PracticeSchema>>(schemas);
             }
