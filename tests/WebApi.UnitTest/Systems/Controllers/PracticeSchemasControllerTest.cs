@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Features.Queries.PracticeSchemaList;
@@ -15,7 +16,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebApi.UnitTest.Fixtures.PracticeSchemaFixtures;
 using Xunit;
-using static Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert.PracticeSchemaLessonInsertCommand;
 
 namespace WebApi.UnitTest.Systems.Controllers
 {
@@ -106,7 +106,7 @@ namespace WebApi.UnitTest.Systems.Controllers
         [InlineData("507f1f77bcf86cd799439014","schema",null,null)]
         [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
         [InlineData("507f1f77bcf86cd799439014","schema",120,4)]
-        public async void Update_ValidObjectPassed_ReturnsReposneHasItem(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
+        public async void Update_ValidObjectPassed_ReturnsResponseHasItem(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
         {
             // Arrange
 
@@ -147,7 +147,7 @@ namespace WebApi.UnitTest.Systems.Controllers
 
         [Theory]
         [InlineData("507f1f77bcf86cd799439014")]
-        public async void Delete_ValidObjectPassed_ReturnsReposneHasItem(string schemaId)
+        public async void Delete_ValidObjectPassed_ReturnsResponseHasItem(string schemaId)
         {
             // Arrange
 
@@ -228,7 +228,37 @@ namespace WebApi.UnitTest.Systems.Controllers
                     Assert.Contains(item,schemaModel.Subjects);
                 }
             }
-
         }
+
+        [Fact]
+        public async void LessonDelete_ValidObjectPassed_ReturnsResponse()
+        {
+            // Arrange
+
+            var mediator = new Mock<IMediator>();
+            mediator.Setup(mdtr => mdtr.Send(It.IsAny<PracticeSchemaLessonDeleteCommand>(),It.IsAny<CancellationToken>()))
+                .ReturnsAsync((PracticeSchemaLessonDeleteCommand deleteCommand,CancellationToken token) =>{
+                    return new VoidServiceResponse();
+                });
+
+            var controller = new PracticeSchemasController(mediator.Object);
+            
+            // Act
+            
+            var deleteResult = await controller.LessonDeleteAsync(new Guid().ToString());
+
+            // Assert
+
+            Assert.IsType<OkObjectResult>(deleteResult.Result);
+
+            var result = deleteResult.Result as OkObjectResult;
+
+            Assert.IsType<VoidServiceResponse>(result?.Value);
+            
+            var serviceResponse = result?.Value as VoidServiceResponse;
+
+            Assert.Null(serviceResponse!.Message);
+            Assert.True(serviceResponse.Success);
+            }
     }
 }
