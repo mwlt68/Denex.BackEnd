@@ -46,11 +46,10 @@ namespace WebApi.UnitTest.Systems.Queries
             userRepository.Setup(x => x.GetAsync(It.IsAny<Expression<System.Func<Denex.Domain.Entities.User, bool>>>()))
                 .ReturnsAsync(() =>
                 {
-                    var expected = UserFixture.GetUser(username);
                     return new User()
                     {
-                        Id = expected.Id,
-                        CreatedAt = expected.CreatedAt,
+                        Id = expectedUser.Id,
+                        CreatedAt = expectedUser.CreatedAt,
                         Username = username,
                     };
                 });
