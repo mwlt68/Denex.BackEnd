@@ -25,7 +25,7 @@ namespace WebApi.UnitTest.Systems.Controllers
             var expected = UserAuthenticationDtoFixture.GetTestModel;
 
             mediator.Setup(mdtr => mdtr.Send(It.IsAny<UserInsertCommand>(),It.IsAny<CancellationToken>()))
-                .ReturnsAsync(UserAuthenticationDtoFixture.GetTestModel);
+                .ReturnsAsync(expected);
 
             UsersController usersController = new UsersController(mediator.Object);
 
@@ -57,7 +57,7 @@ namespace WebApi.UnitTest.Systems.Controllers
             var expected = UserAuthenticationDtoFixture.GetTestModel;
 
             mediator.Setup(mdtr=> mdtr.Send(It.IsAny<UserAuthenticationQuery>(),It.IsAny<CancellationToken>()))
-                .ReturnsAsync(UserAuthenticationDtoFixture.GetTestModel);
+                .ReturnsAsync(expected);
             
             UsersController usersController = new UsersController(mediator.Object);
 
