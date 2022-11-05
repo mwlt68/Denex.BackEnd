@@ -41,9 +41,11 @@ namespace WebApi.UnitTest.Systems.Commands
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
             userRepository.Setup(x=> x.AddAsync(It.IsAny<User>()))
                 .ReturnsAsync(()=>{
+                    var expected= UserFixture.GetUser(username);
+
                     return new User(){
-                        Id = expectedUser.Id,
-                        CreatedAt = expectedUser.CreatedAt,
+                        Id = expected.Id,
+                        CreatedAt = expected.CreatedAt,
                         Username = username,
                     };
                 });
