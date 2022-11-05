@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Denex.Application.Dto;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Xunit;
 
 namespace WebApi.UnitTest.Systems.Validations
@@ -15,7 +15,7 @@ namespace WebApi.UnitTest.Systems.Validations
         [InlineData("507f1f77bcf86cd799439015","schema2",null,null,"lesson1",5,"subject1","subject2","subject3")]
         [InlineData("507f1f77bcf86cd799439016","schema3",120,null,"lesson2",7,"subject1")]
         [InlineData("507f1f77bcf86cd799439017","schema4",120,4,"lesson3",10,"subject1")]
-        public void PracticeSchemaInsertCommandValidator_ValidObjectPassed_ReturnsValidAsync(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration,string lessonName,int lessonQuestionCount,params string[] subjects)
+        public void PracticeSchemaInsertCommandValidator_ValidObjectPassed_ReturnsValid(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration,string lessonName,int lessonQuestionCount,params string[] subjects)
         {
             // Arrange
 
@@ -35,6 +35,28 @@ namespace WebApi.UnitTest.Systems.Validations
             // Act
 
             bool validationResult = Validator.Validate(insertModel).IsValid;
+
+            // Assert   
+
+            Assert.True(validationResult);
+        }
+
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014","schema1",null,null)]
+        [InlineData("507f1f77bcf86cd799439016","schema3",120,null)]
+        [InlineData("507f1f77bcf86cd799439017","schema4",120,4)]
+        public void PracticeSchemaUpdateCommandValidator_ValidObjectPassed_ReturnsValid(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
+        {
+            // Arrange
+
+            PracticeSchemaUpdateValidaton Validator = new PracticeSchemaUpdateValidaton();
+            
+   
+            var updateModel = new PracticeSchemaUpdateCommand(schemaId,schemaName,schemaNetCalculationRate,schemaDuration,DateTime.Now);
+
+            // Act
+
+            bool validationResult = Validator.Validate(updateModel).IsValid;
 
             // Assert   
 
