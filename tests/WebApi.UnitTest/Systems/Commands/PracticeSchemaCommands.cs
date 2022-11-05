@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using AutoMapper;
+using Denex.Application.Exceptions;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Interfaces.Repository;
@@ -103,6 +105,32 @@ namespace WebApi.UnitTest.Systems.Commands
             Assert.Equal(schemaModel.Name,expected.Name);
             Assert.Equal(schemaModel.Duration,expected.Duration);
             Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
+        }
+
+        [Fact]
+        public async void PracticeSchemaUpdateCommand_InValidIdPassed_ThrownPracticeSchemaNotFoundExceptionAsync ()
+        {
+
+            // Arrange 
+
+            var repository = new Mock<IPracticeSchemaRepository>();
+            repository.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(()=> null);
+
+            var handler = new PracticeSchemaUpdateCommandHandler(mapper.Object,repository.Object);
+            var query = new PracticeSchemaUpdateCommand("id","name");
+
+            // Act
+
+            Func<Task> testCode = async () =>
+            {
+                var updateResult =await handler.Handle(query,It.IsAny<CancellationToken>());
+            };
+
+            // Assert
+
+            await Assert.ThrowsAnyAsync<PracticeSchemaNotFoundException>(testCode);
+
         }
     }
 }
