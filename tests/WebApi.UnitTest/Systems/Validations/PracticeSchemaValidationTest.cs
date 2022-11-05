@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Denex.Application.Dto;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Xunit;
 
@@ -57,6 +58,28 @@ namespace WebApi.UnitTest.Systems.Validations
             // Act
 
             bool validationResult = Validator.Validate(updateModel).IsValid;
+
+            // Assert   
+
+            Assert.True(validationResult);
+        }
+           
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014","lesson1",1,"subject1")]
+        [InlineData("507f1f77bcf86cd799439015","lesson1",5,"subject1","subject2","subject3")]
+        [InlineData("507f1f77bcf86cd799439016","lesson2",7,"subject1")]
+        [InlineData("507f1f77bcf86cd799439017","lesson3",10,"subject1")]
+        public void PracticeSchemaLessonInsertValidator_ValidObjectPassed_ReturnsValid(string schemaId,string lessonName,int lessonQuestionCount,params string[] subjects)
+        {
+            // Arrange
+
+            PracticeSchemaLessonInsertValidation Validator = new PracticeSchemaLessonInsertValidation();
+            
+            var insertModel = new PracticeSchemaLessonInsertCommand(schemaId,lessonName,lessonQuestionCount,subjects?.ToList());
+
+            // Act
+
+            bool validationResult = Validator.Validate(insertModel).IsValid;
 
             // Assert   
 
