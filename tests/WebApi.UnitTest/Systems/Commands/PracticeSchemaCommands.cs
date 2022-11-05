@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Denex.Application.Exceptions;
+using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate;
 using Denex.Application.Interfaces.Repository;
@@ -11,6 +12,7 @@ using Denex.Domain.Entities;
 using Moq;
 using WebApi.UnitTest.Fixtures.PracticeSchemaFixtures;
 using Xunit;
+using static Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete.PracticeSchemaDeleteCommand;
 using static Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert.PracticeSchemaInsertCommand;
 using static Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpdate.PracticeSchemaUpdateCommand;
 
@@ -107,8 +109,11 @@ namespace WebApi.UnitTest.Systems.Commands
             Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
         }
 
-        [Fact]
-        public async void PracticeSchemaUpdateCommand_InValidIdPassed_ThrownPracticeSchemaNotFoundExceptionAsync ()
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,4)]
+        public async void PracticeSchemaUpdateCommand_InValidIdPassed_ThrownPracticeSchemaNotFoundExceptionAsync(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
         {
 
             // Arrange 
@@ -131,6 +136,42 @@ namespace WebApi.UnitTest.Systems.Commands
 
             await Assert.ThrowsAnyAsync<PracticeSchemaNotFoundException>(testCode);
 
+        }
+
+        [Theory]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,null)]
+        [InlineData("507f1f77bcf86cd799439014","schema",120,4)]
+        public async void PracticeSchemaDeleteCommand_ValidObjectPassed_ReturnsItem(string schemaId,string schemaName,int? schemaNetCalculationRate,int? schemaDuration)
+        {
+            // Arrange
+            
+            var expected = PracticeSchemaFixture.Get(schemaId,schemaName,schemaNetCalculationRate,schemaDuration);
+            var query = new PracticeSchemaDeleteCommand(){Id=schemaId};
+
+            var repository = new Mock<IPracticeSchemaRepository>();
+            repository.Setup(x => x.DeleteAsync(It.IsAny<string>()))
+                .ReturnsAsync((string id) => PracticeSchemaFixture.Get(id,schemaName,schemaNetCalculationRate,schemaDuration));
+            
+            var handler = new PracticeSchemaDeleteCommandHandler(repository.Object);
+
+            // Act
+
+            var deleteResult =await handler.Handle(query,It.IsAny<CancellationToken>());
+            
+            
+            // Assert
+
+            Assert.IsType<ServiceResponse<PracticeSchema>>(deleteResult);
+            
+            Assert.NotNull(deleteResult?.Value);
+            Assert.Null(deleteResult!.Message);
+            Assert.True(deleteResult.Success);
+
+            var schemaModel = deleteResult.Value!;
+            Assert.Equal(schemaModel.Name,expected.Name);
+            Assert.Equal(schemaModel.Duration,expected.Duration);
+            Assert.Equal(schemaModel.NetCalculationRate,expected.NetCalculationRate);
         }
     }
 }
