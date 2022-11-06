@@ -58,7 +58,7 @@ namespace Denex.WebApi.Controllers
         public async Task<ActionResult<ServiceResponse<UserAuthenticationDto>>> InsertAsync([FromBody] UserInsertCommand userInsertCommand)
         {
             var result = await mediator.Send(userInsertCommand);
-            return CreatedAtAction(nameof(InsertAsync), result);
+            return StatusCode(201,result);
         }
     }
 }

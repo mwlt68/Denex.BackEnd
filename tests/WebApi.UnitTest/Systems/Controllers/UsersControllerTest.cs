@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Denex.Application.Dto;
@@ -35,9 +36,10 @@ namespace WebApi.UnitTest.Systems.Controllers
 
             //Assert
 
-            Assert.IsType<CreatedAtActionResult>(insertResult.Result);
+            Assert.IsType<ObjectResult>(insertResult.Result);
             
-            var result = (insertResult.Result as CreatedAtActionResult);
+            var result = (insertResult.Result as ObjectResult);
+            Assert.Equal(result.StatusCode,(int)HttpStatusCode.Created);
             Assert.IsType<ServiceResponse<UserAuthenticationDto>>(result?.Value);
 
             ServiceResponse<UserAuthenticationDto>? serviceResponse = (result?.Value as ServiceResponse<UserAuthenticationDto>);
