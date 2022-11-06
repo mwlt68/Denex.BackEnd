@@ -2,6 +2,7 @@ using Denex.Application;
 using Denex.Application.Features.Commands.Users.UserInsert;
 using Denex.Persistance;
 using Denex.Persistance.Attributes;
+using Denex.Persistance.Extensions;
 using Denex.WebApi.Middlewares;
 using FluentValidation.AspNetCore;
 
@@ -20,6 +21,7 @@ builder.Services
     .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPersistanceServices(builder.Configuration);
+builder.Configuration.AddMongoImport();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

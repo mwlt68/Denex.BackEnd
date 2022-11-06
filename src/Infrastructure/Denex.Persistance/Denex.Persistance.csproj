@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,26 +6,21 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\mwltg\source\repos\Denex.BackEnd\src\WebApi\Denex.WebApi\denex.webapi.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.3" />
+    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.7.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.3"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Denex.Application\Denex.Application.csproj" />
-    <ProjectReference Include="..\..\Core\Denex.Domain\Denex.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\Denex.Application\Denex.Application.csproj"/>
+    <ProjectReference Include="..\..\Core\Denex.Domain\Denex.Domain.csproj"/>
   </ItemGroup>
-
 </Project>
