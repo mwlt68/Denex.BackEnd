@@ -16,7 +16,7 @@ namespace WebApi.UnitTest.Systems.Validations
         [InlineData("username","password")]
         [InlineData("usr","Password1")]
         [InlineData("username","Password")]
-        public void UserInsertCommandValidator_ValidObjectPassed_ReturnsValidAsync(string username,string password)
+        public void UserInsertCommandValidator_InvalidObjectPassed_ReturnsInvalid(string username,string password)
         {
           var insertModel = new UserInsertCommand(){Username= username,Password = password};
           bool validationResult = Validator.Validate(insertModel).IsValid;
@@ -25,7 +25,7 @@ namespace WebApi.UnitTest.Systems.Validations
 
         [Theory]
         [InlineData("username","Password1")]
-        public void UserInsertCommandValidator_InvalidObjectPassed_ReturnsInvalidAsync(string username,string password)
+        public void UserInsertCommandValidator_ValidObjectPassed_ReturnsValid(string username,string password)
         {
           var insertModel = new UserInsertCommand(){Username= username,Password = password};
           bool validationResult = Validator.Validate(insertModel).IsValid;
