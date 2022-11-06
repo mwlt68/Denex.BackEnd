@@ -9,6 +9,15 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaUpda
 {
     public class PracticeSchemaUpdateCommand : IRequest<ServiceResponse<PracticeSchema>>
     {
+        public PracticeSchemaUpdateCommand(string id,string name,int? netCalculationRate = null, int? duration = null, DateTime? examDate= null)
+        {
+            Id = id;
+            NetCalculationRate = netCalculationRate;
+            Duration = duration;
+            ExamDate = examDate;
+            Name = name;
+        }
+
         public string Id { get; set; }
         public int? NetCalculationRate { get; set; } = null;
         public int? Duration { get; set; } = null;

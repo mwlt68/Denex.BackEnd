@@ -30,6 +30,8 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInse
 
             RuleForEach(x => x.Lessons).ChildRules(y =>
             {
+                y.RuleFor(x=> x.Name)
+                .NotNull();
                 y.RuleFor(x => x.QuestionCount)
                 .GreaterThan(0)
                 .WithMessage("Question count must bigger then zero!");
