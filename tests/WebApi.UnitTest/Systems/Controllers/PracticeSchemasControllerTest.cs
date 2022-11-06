@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaDelete;
 using Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInsert;
@@ -84,9 +85,10 @@ namespace WebApi.UnitTest.Systems.Controllers
             
             // Assert
 
-            Assert.IsType<CreatedResult>(insertResult.Result);
-
-            var result = insertResult.Result as CreatedResult;
+            Assert.IsType<ObjectResult>(insertResult.Result);
+            
+            var result = (insertResult.Result as ObjectResult);
+            Assert.Equal(result.StatusCode,(int)HttpStatusCode.Created);
 
             Assert.IsType<ServiceResponse<PracticeSchema>>(result?.Value);
             
@@ -206,9 +208,10 @@ namespace WebApi.UnitTest.Systems.Controllers
             
             // Assert
 
-            Assert.IsType<CreatedResult>(insertResult.Result);
-
-            var result = insertResult.Result as CreatedResult;
+            Assert.IsType<ObjectResult>(insertResult.Result);
+            
+            var result = (insertResult.Result as ObjectResult);
+            Assert.Equal(result.StatusCode,(int)HttpStatusCode.Created);
 
             Assert.IsType<ServiceResponse<LessonSchema>>(result?.Value);
             

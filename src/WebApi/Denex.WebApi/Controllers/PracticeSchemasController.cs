@@ -32,7 +32,7 @@ namespace Denex.WebApi.Controllers
         public async Task<ActionResult<ServiceResponse<PracticeSchema>>> InsertAsync(PracticeSchemaInsertCommand insertCommand)
         {
             var result = await mediator.Send(insertCommand);
-            return Created(nameof(InsertAsync),result);
+            return StatusCode(201,result);
         }
 
         [HttpPatch]
@@ -54,7 +54,7 @@ namespace Denex.WebApi.Controllers
         public async Task<ActionResult<ServiceResponse<LessonSchema>>> LessonInsertAsync(PracticeSchemaLessonInsertCommand insertCommand)
         {
             var result = await mediator.Send(insertCommand);
-            return Created(nameof(LessonInsertAsync),result);
+            return StatusCode(201,result);
         }
 
         [HttpDelete("id")]
