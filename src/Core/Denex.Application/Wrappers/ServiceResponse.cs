@@ -10,10 +10,10 @@ namespace Denex.Application.Wrappers
     {
         public T? Value { get; set; }
 
-        public ServiceResponse(bool success = true, string message = null) : base(success, message)
+        public ServiceResponse(bool success = true, string? message = null) : base(success, message)
         {
         }
-        public ServiceResponse(T? value, bool success = true, string message = null):base(success, message)
+        public ServiceResponse(T? value, bool success = true, string? message = null):base(success, message)
         {
             Value = value;
         }
@@ -21,7 +21,7 @@ namespace Denex.Application.Wrappers
 
     public class VoidServiceResponse : BaseResponse
     {
-        public VoidServiceResponse(bool success = true, string message = null) : base(success, message)
+        public VoidServiceResponse(bool success = true, string? message = null) : base(success, message)
         {
         }
     }

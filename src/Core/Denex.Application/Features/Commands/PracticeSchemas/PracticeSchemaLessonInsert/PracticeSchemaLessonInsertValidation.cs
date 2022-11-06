@@ -6,6 +6,9 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLess
     {
         public PracticeSchemaLessonInsertValidation()
         {
+            RuleFor(x=> x.Name)
+                .NotNull();
+                
             RuleFor(x=> x.QuestionCount)
                 .GreaterThan(0)
                 .WithMessage("Question count must bigger then zero !");

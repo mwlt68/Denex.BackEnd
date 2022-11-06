@@ -9,6 +9,23 @@ namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaInse
 {
     public class PracticeSchemaInsertCommand : IRequest<ServiceResponse<PracticeSchema>>
     {
+        public PracticeSchemaInsertCommand(string name,DateTime? examDate, int? netCalculationRate, int? duration)
+        {
+            ExamDate = examDate;
+            NetCalculationRate = netCalculationRate;
+            Duration = duration;
+            Name = name;
+            Lessons = new List<LessonSchemaInsertDto>();
+        }
+        public PracticeSchemaInsertCommand(string name,List<LessonSchemaInsertDto> lessons,DateTime? examDate, int? netCalculationRate, int? duration)
+        {
+            ExamDate = examDate;
+            NetCalculationRate = netCalculationRate;
+            Duration = duration;
+            Name = name;
+            Lessons = lessons;
+        }
+
         public DateTime? ExamDate { get; set; } = null;
         public int? NetCalculationRate { get; set; } = null;
         public int? Duration { get; set; } = null;

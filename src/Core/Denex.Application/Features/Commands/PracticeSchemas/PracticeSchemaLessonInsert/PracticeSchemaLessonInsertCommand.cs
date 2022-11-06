@@ -4,16 +4,19 @@ using Denex.Application.Interfaces.Repository;
 using Denex.Application.Wrappers;
 using Denex.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Denex.Application.Features.Commands.PracticeSchemas.PracticeSchemaLessonInsert
 {
     public class PracticeSchemaLessonInsertCommand: IRequest<ServiceResponse<LessonSchema>>
     {
+        public PracticeSchemaLessonInsertCommand(string practiceSchemaId, string name, int questionCount, List<string> subjects)
+        {
+            PracticeSchemaId = practiceSchemaId;
+            Name = name;
+            QuestionCount = questionCount;
+            Subjects = subjects;
+        }
+
         public string PracticeSchemaId { get; set; }
         public string Name { get; set; }
         public int QuestionCount { get; set; }
