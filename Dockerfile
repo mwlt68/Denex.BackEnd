@@ -7,6 +7,7 @@ COPY src/WebApi/Denex.WebApi/Denex.WebApi.csproj ./src/WebApi/Denex.WebApi/
 COPY src/Core/Denex.Domain/Denex.Domain.csproj ./src/Core/Denex.Domain/
 COPY src/Core/Denex.Application/Denex.Application.csproj ./src/Core/Denex.Application/
 COPY src/Infrastructure/Denex.Persistance/Denex.Persistance.csproj ./src/Infrastructure/Denex.Persistance/
+COPY tests/WebApi.UnitTest/WebApi.UnitTest.csproj ./testsBu Bu /WebApi.UnitTest/
 
 RUN dotnet restore
 
@@ -15,6 +16,7 @@ COPY src/WebApi/Denex.WebApi/. ./src/WebApi/Denex.WebApi/
 COPY src/Core/Denex.Domain/. ./src/Core/Denex.Domain/
 COPY src/Core/Denex.Application/. ./src/Core/Denex.Application/
 COPY src/Infrastructure/Denex.Persistance/. ./src/Infrastructure/Denex.Persistance/
+COPY tests/WebApi.UnitTest/. ./tests/WebApi.UnitTest/
 
 WORKDIR /app/src/WebApi/Denex.WebApi
 RUN dotnet publish -c Release -o out
