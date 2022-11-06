@@ -11,7 +11,7 @@ namespace Denex.Application.Repository
     public interface IGenericRepository<T, in TKey> where T : class, IBaseEntity<TKey>, new() where TKey : IEquatable<TKey>
     {
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate);
-        Task<T> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetByIdAsync(TKey id);
         Task<T> AddAsync(T entity);
         Task<bool> AddRangeAsync(IEnumerable<T> entities);
