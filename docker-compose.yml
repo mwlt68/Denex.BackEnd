@@ -11,9 +11,5 @@ services:
       - 27018:27017
     volumes:
       - denex-data:/data/db
-  mongo-seed:
-    build: ./mongo-seed
-    depends_on:
-      - mongodb-service
 volumes:
   denex-data:
