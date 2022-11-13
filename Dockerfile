@@ -7,7 +7,7 @@ COPY src/WebApi/Denex.WebApi/Denex.WebApi.csproj ./src/WebApi/Denex.WebApi/
 COPY src/Core/Denex.Domain/Denex.Domain.csproj ./src/Core/Denex.Domain/
 COPY src/Core/Denex.Application/Denex.Application.csproj ./src/Core/Denex.Application/
 COPY src/Infrastructure/Denex.Persistance/Denex.Persistance.csproj ./src/Infrastructure/Denex.Persistance/
-COPY tests/WebApi.UnitTest/WebApi.UnitTest.csproj ./testsBu Bu /WebApi.UnitTest/
+COPY tests/WebApi.UnitTest/WebApi.UnitTest.csproj ./tests/WebApi.UnitTest/
 
 RUN dotnet restore
 
@@ -20,6 +20,11 @@ COPY tests/WebApi.UnitTest/. ./tests/WebApi.UnitTest/
 
 WORKDIR /app/src/WebApi/Denex.WebApi
 RUN dotnet publish -c Release -o out
+
+WORKDIR /app/tests/WebApi.UnitTest
+RUN dotnet test --verbosity quiet
+
+# build runtime image
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy AS runtime
 WORKDIR /app

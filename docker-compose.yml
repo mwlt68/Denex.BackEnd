@@ -1,15 +1,19 @@
 version: '3.8'
 services:
-  denex-service:
-    container_name: denex
-    build: .
-    ports:
-      - 3003:80
   mongodb-service:
     image: mongo
+    container_name: denex-mongodb
     ports:
       - 27018:27017
     volumes:
       - denex-data:/data/db
+  denex-service:
+    image: mevlutgur/denex-backend
+    container_name: denex-backend
+    build: .
+    ports:
+      - 3003:80
+    depends_on:
+      - mongodb-service
 volumes:
   denex-data:

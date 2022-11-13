@@ -4,11 +4,6 @@
         <name>Denex.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Denex.WebApi.Controllers.UsersController.CheckServer">
-            <summary>
-            Chech the api is running on the server
-            </summary>
-        </member>
         <member name="M:Denex.WebApi.Controllers.UsersController.AuthenticationAsync(Denex.Application.Features.Queries.UserAuthentication.UserAuthenticationQuery)">
             <summary>
             Return token for project authentication.

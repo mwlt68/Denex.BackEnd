@@ -20,14 +20,6 @@ namespace Denex.WebApi.Controllers
             this.mediator = mediator;
         }
 
-        /// <summary>
-        /// Chech the api is running on the server
-        /// </summary>
-        [HttpGet]
-        public IActionResult CheckServer()
-        {
-            return Ok("Service is running");
-        }
 
         /// <summary>
         /// Return token for project authentication.
