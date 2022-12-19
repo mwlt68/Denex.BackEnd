@@ -14,18 +14,18 @@ Denex.Backend is a .NetCore Web API project that is used by mobile and web clien
 
 # 🤔 What technologies does include?
 
-* .Net Core Web API Project.
+* .Net Core Web API project.
 * Onion architecture based. (You can read my [Onion architecture](https://mwltgr.medium.com/net-core-onion-arhitecture-implementation-6ff3ab7bbaf) article)
 * MongoDB used.
-* CQS pattern implemented with Mediator library. (You can read my [CQS pattern](https://medium.com/@mwltgr/net-core-onion-arch-cqrs-mediatr-82f87080edae) article)
+* CQS pattern implementation with Mediator library. (You can read my [CQS pattern](https://medium.com/@mwltgr/net-core-onion-arch-cqrs-mediatr-82f87080edae) article)
 * Dockerization
 * CI CD pipeline with Github Action
 * Unit Testing with XUnit and Moq library. (You can read my [Unit Test](https://mwltgr.medium.com/unit-test-1d5935a10f4e) article)
-* Advanced Swagger implemented. ([Extension Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Extensions/SwaggerExtension.cs))
-* JWT implemented for security. ([Extension Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Extensions/JwtExtension.cs))
-* Repository pattern implemented. ([GenericRepository Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Repositories/GenericRepository.cs))
+* Advanced Swagger implementation. ([Extension Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Extensions/SwaggerExtension.cs))
+* JWT implementation for security. ([Extension Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Extensions/JwtExtension.cs))
+* Repository pattern implementation. ([GenericRepository Class](https://github.com/mwlt68/Denex.BackEnd/blob/master/src/Infrastructure/Denex.Persistance/Repositories/GenericRepository.cs))
 
-# 🚀 How can I run ?
+# 🚀 Running the project
 
 There are 2 option (Github Repo or Docker Image) to run this project.
 
@@ -70,4 +70,4 @@ http://localhost:3003/api/checkserver
 
 * Linkedin at [Mevlüt GÜR](https://www.linkedin.com/in/mevlut-gur/)
 
-* [Gmail](mwltgr@gmail.com)
+* mwltgr@gmail.com
